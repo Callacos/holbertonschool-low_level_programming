@@ -2,36 +2,34 @@
 #include <stdlib.h>
 #include <time.h>
 
+/*
+ * main - Entry point of the program
+ * This program generates a random number.
+ */
 int main(void)
 {
-	/*
-	 * Programme pour générer un nombre aléatoire et déterminer
-	 * s'il est positif, négatif ou zéro.
-	 * Le nombre est affiché suivi de son évaluation.
-	 */
-	int n;
+int n;
+/* Initialize random number generator */
+srand(time(0)); /* Seed the random number generator with the current time */
+/* Generate a random number between -100 and 100 */
+n = (rand() % 201) - 100;
 
-	/* Initialisation de la générateur de nombres aléatoires */
-	srand(time(0)); /* Semence du générateur avec l'heure actuelle */
-	n = rand() % (RAND_MAX / 2 + 1);
-	n = (n * 2) - (RAND_MAX / 2);
-
-	/* Affichage du nombre */
-	printf("%d ", n);
-
-	/* Condition pour déterminer si n est positif, négatif ou zéro */
-	if (n > 0)
-	{
-		printf("is positive\n"); /* Si n est positif */
-	}
-	else if (n == 0)
-	{
-		printf("is zero\n"); /* Si n est zéro */
-	}
-	else
-	{
-		printf("is negative\n"); /* Si n est négatif */
-	}
-
-	return (0);
+/* Print the generated number */
+printf("%d ", n);
+/* Determine if n is positive, negative, or zero */
+if (n > 0)
+{
+printf("is positive\n"); /* If n is positive */
 }
+else if (n == 0)
+{
+printf("is zero\n"); /* If n is zero */
+}
+else
+{
+printf("is negative\n"); /* If n is negative */
+}
+
+return (0);
+}
+
