@@ -12,10 +12,10 @@
 int main(void)
 {
 	int n;
-/* Initialize random number generator */
-	srand(time(0)); /* Seed the random number generator with the current time */
-/* Generate a random number between -100 and 100 */
-	n = (rand() % 201) - 100;
+
+	srand(time(0));
+	n = rand() - RAND_MAX / 2;
+
 
 /* Print the generated number */
 	printf("%d ", n);
@@ -33,9 +33,6 @@ int main(void)
 		printf("is negative\n"); /* If n is negative */
 	}
 
-	srand(time(0));
-	n = rand() - RAND_MAX / 2;
-	/* your code goes there */
 	return (0);
 }
 
