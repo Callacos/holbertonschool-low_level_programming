@@ -1,14 +1,12 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <stdio.h>
+/* more headers goes there */
 
-/*
- * main - Entry point of the program
- * This program generates a random number.
- */
+/* betty style doc for function main goes there */
 int main(void)
 {
-int n;
+	int n;
 /* Initialize random number generator */
 srand(time(0)); /* Seed the random number generator with the current time */
 /* Generate a random number between -100 and 100 */
@@ -30,6 +28,9 @@ else
 printf("is negative\n"); /* If n is negative */
 }
 
-return (0);
+srand(time(0));
+	n = rand() - RAND_MAX / 2;
+	/* your code goes there */
+	return (0);
 }
 
