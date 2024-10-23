@@ -12,10 +12,10 @@ int main(void)
 
 	for (num = 0; num < 10; num++)
 	{
-		putchar(num + '0');  // Convertit le chiffre en caractère
+		putchar(num + '0');
 	}
 
-	putchar('\n');  // Saut de ligne après les chiffres
+	putchar('\n');
 
 	return (0);
 }
