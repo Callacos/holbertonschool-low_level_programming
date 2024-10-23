@@ -3,7 +3,7 @@
 /**
 *main - Entry alphabet in lowercase
 *
-*Return : Alwayse 0 (success)
+*Return: Alwayse 0 (success)
 */
 
 int main(void)
