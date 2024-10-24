@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 
+void print_to_98(int n);
 int add(int, int);
 void times_table(void);
 void jack_bauer(void);
