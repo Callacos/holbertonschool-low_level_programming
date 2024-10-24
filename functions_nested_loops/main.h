@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 
+int add(int, int);
 void times_table(void);
 void jack_bauer(void);
 int print_last_digit(int);
