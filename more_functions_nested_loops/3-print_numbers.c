@@ -1,5 +1,5 @@
 #include "main.h"
-
+#include <unistd.h>
 /**
  * print_numbers - Imprime les chiffres de 0 à 9
  *
@@ -8,13 +8,9 @@
  */
 void print_numbers(void)
 {
-	int i;
+	char str[] = "0123456789$";
 
-	for (i = 0; i <= 9; i++)
-	{
-		_putchar(i + '0');
-	}
-	_putchar('$');
+    write(1, str, 11);
 	_putchar('\n');
 }
 
