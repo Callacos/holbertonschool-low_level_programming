@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 
+void more_numbers(void);
 ssize_t write(int fd, const void *buf, size_t count);
 void print_most_numbers(void);
 void print_numbers(void);
