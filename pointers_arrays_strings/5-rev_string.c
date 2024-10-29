@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * reverse_string - Inverse une chaîne de caractères.
+ * rev_string - Inverse une chaîne de caractères.
  * @s: Pointeur vers la chaîne de caractères à inverser.
  *
  * Description: Cette fonction inverse la chaîne `s` en permutant
