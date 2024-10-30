@@ -8,9 +8,10 @@
  *
  * Description: Cette fonction est similaire à `_strcat`, sauf qu'elle
  * ajoute au plus `n` caractères de `src` à `dest`. Si `src` contient `n`
- * caractères ou plus, elle n'a pas besoin d'être terminée par un caractère nul (`\0`).
+ * caractères ou plus, elle n'a pas besoin d'être
+ * terminée par un caractère nul (`\0`).
  *
- * @return: Retourne un pointeur vers la chaîne résultante `dest`.
+ * Return: Retourne un pointeur vers la chaîne résultante `dest`.
  */
 char *_strncat(char *dest, char *src, int n)
 {
@@ -34,5 +35,5 @@ char *_strncat(char *dest, char *src, int n)
 	/* Ajouter le caractère nul à la fin de dest */
 	dest[i] = '\0';
 
-	return dest;
+	return (dest);
 }
