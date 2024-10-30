@@ -2,41 +2,43 @@
 
 /**
  * _strcat - Concatène deux chaînes de caractères
- * @dest: Chaîne de destination, où src sera ajoutée
- * @src: Chaîne source à ajouter à la fin de dest
+ * @dest: Chaîne de destination
+ * @src: Chaîne source à ajouter
  *
- * Cette fonction parcourt dest pour trouver sa fin, puis
- * copie les caractères de src à la suite de dest.
- * La chaîne résultante est terminée par un caractère nul (\0).
- * Retourne un pointeur vers la chaîne résultante dest.
+ * Description: Cette fonction ajoute la chaîne pointée par src à la fin de
+ * la chaîne pointée par dest Elle écrase le caractère nul ('\0') à la fin
+ * de dest, puis ajoute un nouveau caractère nul à la fin du résultat.
  *
- *Return: Retourne un pointeur vers la chaine résultante 'dest'.
+ * Return: Un pointeur vers la chaîne résultante dest.
  */
-void reset_to_98(int *n)
-{
-    *n = 98;
-}
 char *_strcat(char *dest, char *src)
 {
-	int i = 0;
-	int j = 0;
+	int dest_len = 0;
+	int i;
 
-	/* Trouver la fin de dest */
-	while (dest[i] != '\0')
+	while (dest[dest_len] != '\0')
 	{
-		i++;
+	dest_len++;
 	}
 
-	/* Copier les caractères de src dans dest */
-	while (src[j] != '\0')
+	for (i = 0; src[i] != '\0'; i++)
 	{
-		dest[i] = src[j];
-		i++;
-		j++;
+	dest[dest_len + i] = src[i];
 	}
-
-	/* Ajouter le caractère nul à la fin de dest */
-	dest[i] = '\0';
+	dest[dest_len + i] = '\0';
 
 	return (dest);
 }
+
+/**
+ * reset_to_98 - Réinitialise la valeur pointée à 98
+ * @n: Pointeur vers l'entier à modifier
+ *
+ * Description: Cette fonction prend un pointeur vers un entier et change
+ * la valeur pointée à 98.
+ */
+void reset_to_98(int *n)
+{
+	*n = 98;
+}
+
