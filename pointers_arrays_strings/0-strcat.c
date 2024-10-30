@@ -10,8 +10,12 @@
  * La chaîne résultante est terminée par un caractère nul (\0).
  * Retourne un pointeur vers la chaîne résultante dest.
  *
- *@return: Retourne un pointeur vers la chaine résultante 'dest'.
+ *Return: Retourne un pointeur vers la chaine résultante 'dest'.
  */
+void reset_to_98(int *n)
+{
+    *n = 98;
+}
 char *_strcat(char *dest, char *src)
 {
 	int i = 0;
