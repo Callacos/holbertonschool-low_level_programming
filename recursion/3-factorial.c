@@ -1,5 +1,4 @@
 #include "main.h"
-#include "main.h"
 
 /**
  * factorial - calcule la factorielle d'un nombre
@@ -10,16 +9,10 @@
 
 int factorial(int n)
 {
-	int resultat = 1;
-	int i;
 
 	if (n < 0)
 		return (-1);
-
-
-	for (i = 1; i <= n; i++)
-	{
-		resultat *= i;
-	}
-	return (resultat);
+	if (n == 0)
+	return (1);
+	return (factorial(n - 1) * n);
 }
