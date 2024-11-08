@@ -9,7 +9,9 @@
 int main(int argc, char *argv[])
 {
 	int nombre1, nombre2, resultat;
+
 	if (argc != 3)
+
 	{
 	printf("Error\n");
 	return (0);
