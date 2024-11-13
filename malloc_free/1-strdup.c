@@ -1,3 +1,5 @@
+#include "main.h"
+#include <stdio.h>
 #include <stdlib.h>
 /**
 * _strdup - fonction qui retourne un pointeur d'une
@@ -25,7 +27,7 @@ char *_strdup(char *str)
 	if (copy == NULL)
 		return (NULL);
 
-	for (; i < length; i++)
+	for (i = 0; i < length; i++)
 		copy[i] = str[i];
 
 	copy[length] = '\0';
