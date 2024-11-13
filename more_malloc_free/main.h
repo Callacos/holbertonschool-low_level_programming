@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <stdio.h>
 
+char *string_nconcat(char *s1, char *s2, unsigned int n);
 void *malloc_checked(unsigned int b);
 void free_grid(int **grid, int height);
 int **alloc_grid(int width, int height);
