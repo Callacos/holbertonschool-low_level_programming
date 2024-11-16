@@ -1,38 +1,82 @@
 #include <stdlib.h>
-#include <stdio.h>
 #include "dog.h"
-#include <string.h>
+
 /**
-** new_dog - crée un nouveau chien.
- * @name: le nom du chien.
- * @age: l'âge du chien.
- * @owner: le propriétaire du chien.
- * Return: un pointeur vers le nouveau chien ou NULL en cas d'erreur.
-*/
+ * _strlen - calcule la longueur d'une chaîne
+ * @s: la chaîne à mesurer
+ * Return: la longueur de la chaîne
+ */
+int _strlen(char *s)
+{
+	int len = 0;
+
+	while (s[len])
+		len++;
+
+	return (len);
+}
+
+/**
+ * _strcpy - copie une chaîne
+ * @dest: la destination
+ * @src: la source
+ * Return: le pointeur vers dest
+ */
+char *_strcpy(char *dest, char *src)
+{
+	int i = 0;
+
+	while (src[i])
+
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
+
+/**
+ * new_dog - crée un nouveau chien
+ * @name: le nom du chien
+ * @age: l'âge du chien
+ * @owner: le propriétaire du chien
+ * Return: pointeur vers le nouveau chien, NULL si échec
+ */
 dog_t *new_dog(char *name, float age, char *owner)
 {
-	dog_t *new_dog;
+	dog_t *dog;
+	int len_name, len_owner;
 
-	new_dog = malloc(sizeof(dog_t));
-	if (new_dog == NULL)
+	if (!name || age < 0 || !owner)
 	return (NULL);
 
-	new_dog->name = strdup(name);
-	if (new_dog->name == NULL)
+	dog = malloc(sizeof(dog_t));
+	if (!dog)
+	return (NULL);
+
+	len_name = _strlen(name);
+	len_owner = _strlen(owner);
+
+	dog->name = malloc(sizeof(char) * (len_name + 1));
+	if (!dog->name)
 	{
-	free(new_dog);
+	free(dog);
 	return (NULL);
 	}
 
-	new_dog->owner = strdup(owner);
-	if (new_dog->owner == NULL)
+	dog->owner = malloc(sizeof(char) * (len_owner + 1));
+	if (!dog->owner)
 	{
-	free(new_dog->name);
-	free(new_dog);
+	free(dog->name);
+	free(dog);
 	return (NULL);
 	}
 
-	new_dog->age = age;
+	_strcpy(dog->name, name);
+	_strcpy(dog->owner, owner);
+	dog->age = age;
 
-	return (new_dog);
+	return (dog);
 }
+
