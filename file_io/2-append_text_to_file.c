@@ -12,25 +12,22 @@
  */
 int append_text_to_file(const char *filename, char *text_content)
 {
-	int fd;
-	ssize_t bytes_written, length = 0;
+	int fd, bytes_written;
+	size_t length = 0;
 
-	if (filename == NULL)
-		return (-1);
+	if (!filename)
+	return (-1);
 
-	/* Ouvrir le fichier en mode écriture avec troncature */
-	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0664);
+    /* Ouvrir le fichier en mode append */
+	fd = open(filename, O_WRONLY | O_APPEND);
 	if (fd == -1)
-		return (-1);
+	return (-1);
 
-	/* Si text_content est NULL, ne rien écrire, mais retourner 1 */
-	if (text_content != NULL)
+	if (text_content)
 	{
-		/* Calculer la longueur de text_content */
 		while (text_content[length])
-			length++;
+		length++;
 
-		/* Écrire le contenu dans le fichier */
 		bytes_written = write(fd, text_content, length);
 		if (bytes_written == -1)
 		{
