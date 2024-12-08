@@ -12,30 +12,30 @@
  */
 int append_text_to_file(const char *filename, char *text_content)
 {
-	int fd, bytes_written;
-	size_t length = 0;
+int fd, bytes_written;
+size_t length = 0;
 
-	if (!filename)
+if (!filename)
 	return (-1);
 
-    /* Ouvrir le fichier en mode append */
-	fd = open(filename, O_WRONLY | O_APPEND);
-	if (fd == -1)
+/* Ouvrir le fichier en mode append */
+fd = open(filename, O_WRONLY | O_APPEND);
+if (fd == -1)
 	return (-1);
 
-	if (text_content)
-	{
-		while (text_content[length])
+if (text_content)
+{
+	while (text_content[length])
 		length++;
 
-		bytes_written = write(fd, text_content, length);
-		if (bytes_written == -1)
-		{
-			close(fd);
-			return (-1);
-		}
+	bytes_written = write(fd, text_content, length);
+	if (bytes_written == -1)
+	{
+		close(fd);
+		return (-1);
 	}
+}
 
-	close(fd);
-	return (1);
+close(fd);
+return (1);
 }
