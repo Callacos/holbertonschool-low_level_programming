@@ -88,7 +88,6 @@ void copy_file(int fd_from, int fd_to)
 		write(fd_to, &newline, 1);
 	}
 }
-
 /**
  * main - Copies content from one file to another.
  * @ac: Argument count.
