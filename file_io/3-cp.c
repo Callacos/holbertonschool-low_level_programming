@@ -3,101 +3,77 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-#define BUFFER_SIZE 1024
 
 /**
- * handle_close - Closes a file descriptor and handles errors
- * @fd: The file descriptor to be closed
+ * error_exit - Affiche un message d'erreur et quitte le programme
+ * @code: Le code de sortie à utiliser
+ * @format: La chaîne de format pour le message d'erreur
+ * @arg: L'argument à insérer dans la chaîne de format
+ *
+ * Description: Cette fonction affiche un message d'erreur formaté
+ * sur la sortie d'erreur standard, puis termine le programme
+ * avec le code de sortie spécifié.
  */
-void handle_close(int fd)
+void error_exit(int code, const char *format, const char *arg)
 {
-if (close(fd) == -1)
-{
-	dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
-	exit(100);
-}
-}
-
-/**
- * open_file_for_reading - Opens a file for reading
- * @filename: The name of the file to be opened
- * Return: The file descriptor
- */
-int open_file_for_reading(const char *filename)
-{
-int fd = open(filename, O_RDONLY);
-
-if (fd == -1)
-{
-	dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", filename);
-	exit(98);
-}
-return (fd);
+	dprintf(STDERR_FILENO, format, arg);
+	exit(code);
 }
 
 /**
- * open_file_for_writing - Opens a file for writing
- * @filename: The name of the file to be opened
- * Return: The file descriptor
+ * close_file - Ferme un descripteur de fichier
+ * @fd: Le descripteur de fichier à fermer
+ *
+ * Description: Cette fonction tente de fermer le descripteur de fichier
+ * donné. Si la fermeture échoue, elle appelle error_exit pour afficher
+ * un message d'erreur et quitter le programme.
  */
-int open_file_for_writing(const char *filename)
+void close_file(int fd)
 {
-int fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0664);
-
-return (fd);
-
+	if (close(fd) == -1)
+		error_exit(100, "Error: Can't close fd %d\n", (char *)&fd);
 }
 
 /**
- * copy_file - Copies content from one file to another
- * @fd_from: Source file descriptor
- * @fd_to: Destination file descriptor
+ * main - Copie le contenu d'un fichier vers un autre fichier
+ * @argc: Le nombre d'arguments passés au programme
+ * @argv: Un tableau de chaînes contenant les arguments du programme
+ *
+ * Return: 0 en cas de succès, divers codes d'erreur en cas d'échec
+ *
+ * Description: Ce programme copie le contenu d'un fichier source vers un
+ * fichier de destination. Il vérifie le nombre correct d'arguments, ouvre
+ * les fichiers source et destination, lit le contenu du fichier source
+ * par blocs et l'écrit dans le fichier de destination. Gère les erreurs
+ * d'ouverture, de lecture, d'écriture et de fermeture des fichiers.
  */
-void copy_file(int fd_from, int fd_to)
+int main(int argc, char *argv[])
 {
-char buffer[BUFFER_SIZE];
-ssize_t bytes_read, bytes_written;
+	int fd_from, fd_to;
+	ssize_t bytes_read, bytes_written;
+	char buffer[1024];
 
-while ((bytes_read = read(fd_from, buffer, BUFFER_SIZE)) > 0)
-{
-	bytes_written = write(fd_to, buffer, bytes_read);
-	if (fd_to == -1 || bytes_written != bytes_read)
+	if (argc != 3)
+		error_exit(97, "Usage: cp file_from file_to\n", "");
+
+	fd_from = open(argv[1], O_RDONLY);
+	if (fd_from == -1)
+		error_exit(98, "Error: Can't read from file %s\n", argv[1]);
+
+	fd_to = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0664);
+
+	while ((bytes_read = read(fd_from, buffer, sizeof(buffer))) > 0)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't write to fd %d\n", fd_to);
-		exit(99);
+		bytes_written = write(fd_to, buffer, bytes_read);
+		if (fd_to == -1 || bytes_written != bytes_read)
+			error_exit(99, "Error: Can't write to %s\n", argv[2]);
 	}
-}
 
-if (bytes_read == -1)
-{
-	dprintf(STDERR_FILENO, "Error: Can't read from fd %d\n", fd_from);
-	exit(98);
-}
-}
+	if (bytes_read == -1)
+		error_exit(98, "Error: Can't read from file %s\n", argv[1]);
 
-/**
- * main - Entry point
- * @ac: Argument count
- * @av: Argument vector
- * Return: 0 on success
- */
-int main(int ac, char *av[])
-{
-int fd_from, fd_to;
+	close_file(fd_from);
+	close_file(fd_to);
 
-if (ac != 3)
-{
-	dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
-	exit(97);
-}
-
-fd_from = open_file_for_reading(av[1]);
-fd_to = open_file_for_writing(av[2]);
-
-copy_file(fd_from, fd_to);
-
-handle_close(fd_from);
-handle_close(fd_to);
-
-return (0);
+	return (0);
 }
