@@ -44,12 +44,8 @@ int open_file_for_writing(const char *filename)
 {
 int fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0664);
 
-if (fd == -1)
-{
-	dprintf(STDERR_FILENO, "Error: Can't write to %s\n", filename);
-	exit(99);
-}
 return (fd);
+
 }
 
 /**
@@ -65,7 +61,7 @@ ssize_t bytes_read, bytes_written;
 while ((bytes_read = read(fd_from, buffer, BUFFER_SIZE)) > 0)
 {
 	bytes_written = write(fd_to, buffer, bytes_read);
-	if (bytes_written == -1)
+	if (fd_to == -1 || bytes_written != bytes_read)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't write to fd %d\n", fd_to);
 		exit(99);
